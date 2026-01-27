@@ -1,0 +1,9 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Ftm's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+/* Ensure Angular CDK overlays (menus, dialogs, tooltips) sit above app chrome */
+.cdk-overlay-container {
+    z-index: 1000; /* higher than headers/drawers defined around ~300-999 */
+}

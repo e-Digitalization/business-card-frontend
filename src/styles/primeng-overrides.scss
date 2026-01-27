@@ -1,0 +1,129 @@
+/* PrimeNG design overrides mapped to FTM theme tokens */
+
+/* Base text and backgrounds */
+
+/* Buttons */
+.p-button {
+  background-color: var(--ftm-primary-500);
+  border-color: var(--ftm-primary-500);
+  color: #fff;
+}
+.p-button:hover {
+  background-color: var(--ftm-primary-600);
+  border-color: var(--ftm-primary-600);
+}
+.p-button.p-button-outlined {
+  background-color: transparent;
+  color: var(--ftm-primary-500);
+  border-color: var(--ftm-primary-500);
+}
+.p-button.p-button-text {
+  background-color: transparent;
+  color: var(--ftm-primary-500);
+}
+
+/* Inputs */
+.p-inputtext,
+.p-inputtextarea,
+.p-inputnumber-input {
+  color: var(--ftm-text-default);
+  background: var(--ftm-bg-default);
+  border-color: var(--ftm-border);
+}
+.p-inputtext:focus,
+.p-inputtextarea:focus,
+.p-inputnumber-input:focus {
+  border-color: var(--ftm-primary-500);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ftm-primary-500) 20%, transparent);
+}
+
+/* Dropdown / Select */
+.p-dropdown,
+.p-select {
+  background: var(--ftm-bg-default);
+  border-color: var(--ftm-border);
+}
+.p-dropdown:not(.p-disabled).p-focus,
+.p-select:not(.p-disabled).p-focus {
+  border-color: var(--ftm-primary-500);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ftm-primary-500) 20%, transparent);
+}
+
+/* Checkbox / Radio */
+.p-checkbox .p-checkbox-box.p-highlight,
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  background: var(--ftm-primary-500);
+  border-color: var(--ftm-primary-500);
+}
+
+/* Dialog */
+.p-dialog .p-dialog-header,
+.p-dialog .p-dialog-content,
+.p-dialog .p-dialog-footer {
+  background: var(--ftm-bg-default);
+  color: var(--ftm-text-default);
+  border-color: var(--ftm-border);
+}
+
+/* Toast */
+.p-toast .p-toast-message {
+  border-left: 4px solid var(--ftm-primary-500);
+}
+
+/* Table */
+.p-datatable .p-datatable-header,
+.p-datatable .p-datatable-footer {
+  background: var(--ftm-bg-default);
+  color: var(--ftm-text-secondary);
+  border-color: var(--ftm-border);
+}
+.p-datatable thead th {
+  background: var(--ftm-bg-default);
+  color: var(--ftm-text-secondary);
+  border-color: var(--ftm-border);
+}
+.p-datatable tbody > tr > td {
+  border-color: var(--ftm-border);
+}
+.p-datatable tbody > tr.p-highlight {
+  background: color-mix(in srgb, var(--ftm-primary-500) 10%, transparent);
+}
+
+/* Overlay surfaces (menus, panels) */
+.p-overlaypanel,
+.p-menu,
+.p-menubar,
+.p-sidebar,
+.p-panel,
+.p-card {
+  background: var(--ftm-bg-default);
+  color: var(--ftm-text-default);
+  border-color: var(--ftm-border);
+}
+
+/* Badges / Chips */
+.p-badge.p-badge-primary,
+.p-chip .p-chip-icon {
+  background: var(--ftm-primary-500);
+}
+
+/* Progress */
+.p-progressbar .p-progressbar-value,
+.p-progressspinner {
+  background: var(--ftm-primary-500);
+  color: var(--ftm-primary-500);
+}
+
+/* Utility */
+.p-focus {
+  outline: none;
+}
+
+/* Dark scheme hook (if you toggle schemes via a data attribute/class) */
+/*
+[data-scheme="dark"] {
+  --p-text-color: var(--ftm-text-default);
+  --p-content-background: var(--ftm-bg-default);
+  --p-content-border-color: var(--ftm-border);
+}
+*/

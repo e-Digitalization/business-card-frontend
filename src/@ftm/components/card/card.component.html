@@ -1,0 +1,25 @@
+<!-- Flippable card -->
+@if (flippable) {
+    <!-- Front -->
+    <div class="ftm-card-front">
+        <ng-content select="[ftmCardFront]"></ng-content>
+    </div>
+
+    <!-- Back -->
+    <div class="ftm-card-back">
+        <ng-content select="[ftmCardBack]"></ng-content>
+    </div>
+}
+
+<!-- Normal card -->
+@if (!flippable) {
+    <!-- Content -->
+    <ng-content></ng-content>
+
+    <!-- Expansion -->
+    @if (expanded) {
+        <div class="ftm-card-expansion" [@expandCollapse]>
+            <ng-content select="[ftmCardExpansion]"></ng-content>
+        </div>
+    }
+}

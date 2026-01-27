@@ -1,0 +1,106 @@
+<div
+    class="ftm-vertical-navigation-item-wrapper"
+    [class.ftm-vertical-navigation-item-has-subtitle]="!!item.subtitle"
+    [ngClass]="item.classes?.wrapper"
+    [appPermission]="item.meta?.permission"
+>
+    <div
+        class="ftm-vertical-navigation-item"
+        [ngClass]="{ 'ftm-vertical-navigation-item-disabled': item.disabled }"
+        [matTooltip]="item.tooltip || ''"
+        (click)="toggleCollapsable()"
+    >
+        <!-- Icon -->
+        @if (item.icon) {
+            <mat-icon
+                class="ftm-vertical-navigation-item-icon"
+                [ngClass]="item.classes?.icon"
+                [svgIcon]="item.icon"
+            ></mat-icon>
+        }
+
+        <!-- Title & Subtitle -->
+        <div class="ftm-vertical-navigation-item-title-wrapper">
+            <div class="ftm-vertical-navigation-item-title">
+                <span [ngClass]="item.classes?.title">
+                    {{ item.title }}
+                </span>
+            </div>
+            @if (item.subtitle) {
+                <div class="ftm-vertical-navigation-item-subtitle">
+                    <span [ngClass]="item.classes?.subtitle">
+                        {{ item.subtitle }}
+                    </span>
+                </div>
+            }
+        </div>
+
+        <!-- Badge -->
+        @if (item.badge) {
+            <div class="ftm-vertical-navigation-item-badge">
+                <div
+                    class="ftm-vertical-navigation-item-badge-content"
+                    [ngClass]="item.badge.classes"
+                >
+                    {{ item.badge.title }}
+                </div>
+            </div>
+        }
+
+        <!-- Arrow -->
+        <mat-icon
+            class="ftm-vertical-navigation-item-arrow icon-size-4"
+            [svgIcon]="'heroicons_solid:chevron-right'"
+        ></mat-icon>
+    </div>
+</div>
+
+@if (!isCollapsed) {
+    <div class="ftm-vertical-navigation-item-children" @expandCollapse>
+        @for (item of item.children; track trackByFn($index, item)) {
+            <!-- Skip the hidden items -->
+            @if ((item.hidden && !item.hidden(item)) || !item.hidden) {
+                <!-- Basic -->
+                @if (item.type === 'basic') {
+                    <ftm-vertical-navigation-basic-item
+                        [item]="item"
+                        [name]="name"
+                    ></ftm-vertical-navigation-basic-item>
+                }
+
+                <!-- Collapsable -->
+                @if (item.type === 'collapsable') {
+                    <ftm-vertical-navigation-collapsable-item
+                        [item]="item"
+                        [name]="name"
+                        [autoCollapse]="autoCollapse"
+                    ></ftm-vertical-navigation-collapsable-item>
+                }
+
+                <!-- Divider -->
+                @if (item.type === 'divider') {
+                    <ftm-vertical-navigation-divider-item
+                        [item]="item"
+                        [name]="name"
+                    ></ftm-vertical-navigation-divider-item>
+                }
+
+                <!-- Group -->
+                @if (item.type === 'group') {
+                    <ftm-vertical-navigation-group-item
+                        [item]="item"
+                        [name]="name"
+                    ></ftm-vertical-navigation-group-item>
+                }
+
+                <!-- Spacer -->
+                @if (item.type === 'spacer') {
+                    <ftm-vertical-navigation-spacer-item
+                        [item]="item"
+                        [name]="name"
+                    ></ftm-vertical-navigation-spacer-item>
+                }
+            }
+        }
+    </div>
+}

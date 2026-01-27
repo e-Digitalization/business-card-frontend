@@ -1,0 +1,52 @@
+/* Minimal fixes for Compact appearance labels */
+
+/* Wrap and clamp long titles to 2 lines and hyphenate if needed */
+ftm-vertical-navigation.ftm-vertical-navigation-appearance-compact .ftm-vertical-navigation-item-title {
+  white-space: normal;
+  text-align: center;
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;              /* standard */
+  -webkit-line-clamp: 2;      /* WebKit */
+  -webkit-box-orient: vertical;
+  word-break: break-word;     /* break very long tokens */
+  hyphens: auto;              /* allow hyphenation when available */
+}
+
+/* Prevent title wrapper from overflowing its card in compact */
+ftm-vertical-navigation.ftm-vertical-navigation-appearance-compact .ftm-vertical-navigation-item-title-wrapper {
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Group titles inside compact should also wrap neatly */
+ftm-vertical-navigation.ftm-vertical-navigation-appearance-compact ftm-vertical-navigation-group-item .ftm-vertical-navigation-item-title {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-transform: none;      /* allow hyphenation/wrap */
+  line-height: 16px;
+}
+
+/* Aside flyout panel titles: allow wrapping for long labels (children list) */
+ftm-vertical-navigation .ftm-vertical-navigation-aside-wrapper .ftm-vertical-navigation-item-title {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Ensure aside title wrapper also doesn't overflow */
+ftm-vertical-navigation .ftm-vertical-navigation-aside-wrapper .ftm-vertical-navigation-item-title-wrapper {
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+}

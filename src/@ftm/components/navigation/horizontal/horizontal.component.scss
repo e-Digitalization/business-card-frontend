@@ -1,0 +1,166 @@
+/* Root navigation specific */
+ftm-horizontal-navigation {
+    .ftm-horizontal-navigation-wrapper {
+        display: flex;
+        align-items: center;
+
+        /* Basic, Branch */
+        ftm-horizontal-navigation-basic-item,
+        ftm-horizontal-navigation-branch-item {
+            @screen sm {
+                &:hover {
+                    .ftm-horizontal-navigation-item-wrapper {
+                        @apply bg-hover;
+                    }
+                }
+            }
+
+            .ftm-horizontal-navigation-item-wrapper {
+                border-radius: 4px;
+                overflow: hidden;
+
+                .ftm-horizontal-navigation-item {
+                    padding: 0 16px;
+                    cursor: pointer;
+                    user-select: none;
+
+                    .ftm-horizontal-navigation-item-icon {
+                        margin-right: 12px;
+                    }
+                }
+            }
+        }
+
+        /* Basic - When item active (current link) */
+        ftm-horizontal-navigation-basic-item {
+            .ftm-horizontal-navigation-item-active,
+            .ftm-horizontal-navigation-item-active-forced {
+                .ftm-horizontal-navigation-item-title {
+                    @apply text-primary #{'!important'};
+                }
+
+                .ftm-horizontal-navigation-item-subtitle {
+                    @apply text-primary-400 #{'!important'};
+
+                    .dark & {
+                        @apply text-primary-600 #{'!important'};
+                    }
+                }
+
+                .ftm-horizontal-navigation-item-icon {
+                    @apply text-primary #{'!important'};
+                }
+            }
+        }
+
+        /* Branch - When menu open */
+        ftm-horizontal-navigation-branch-item {
+            .ftm-horizontal-navigation-menu-active,
+            .ftm-horizontal-navigation-menu-active-forced {
+                .ftm-horizontal-navigation-item-wrapper {
+                    @apply bg-hover;
+                }
+            }
+        }
+
+        /* Spacer */
+        ftm-horizontal-navigation-spacer-item {
+            margin: 12px 0;
+        }
+    }
+}
+
+/* Menu panel specific */
+.ftm-horizontal-navigation-menu-panel {
+    .ftm-horizontal-navigation-menu-item {
+        height: auto;
+        min-height: 0;
+        line-height: normal;
+        white-space: normal;
+
+        /* Basic, Branch */
+        ftm-horizontal-navigation-basic-item,
+        ftm-horizontal-navigation-branch-item,
+        ftm-horizontal-navigation-divider-item {
+            display: flex;
+            flex: 1 1 auto;
+        }
+
+        /* Divider */
+        ftm-horizontal-navigation-divider-item {
+            margin: 8px -16px;
+
+            .ftm-horizontal-navigation-item-wrapper {
+                height: 1px;
+                box-shadow: 0 1px 0 0;
+            }
+        }
+    }
+}
+
+/* Navigation menu item common */
+.ftm-horizontal-navigation-menu-item {
+    /* Basic - When item active (current link) */
+    ftm-horizontal-navigation-basic-item {
+        .ftm-horizontal-navigation-item-active,
+        .ftm-horizontal-navigation-item-active-forced {
+            .ftm-horizontal-navigation-item-title {
+                @apply text-primary #{'!important'};
+            }
+
+            .ftm-horizontal-navigation-item-subtitle {
+                @apply text-primary-400 #{'!important'};
+
+                .dark & {
+                    @apply text-primary-600 #{'!important'};
+                }
+            }
+
+            .ftm-horizontal-navigation-item-icon {
+                @apply text-primary #{'!important'};
+            }
+        }
+    }
+
+    .ftm-horizontal-navigation-item-wrapper {
+        width: 100%;
+
+        &.ftm-horizontal-navigation-item-has-subtitle {
+            .ftm-horizontal-navigation-item {
+                min-height: 56px;
+            }
+        }
+
+        .ftm-horizontal-navigation-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 48px;
+            width: 100%;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+
+            .ftm-horizontal-navigation-item-title-wrapper {
+                .ftm-horizontal-navigation-item-subtitle {
+                    font-size: 12px;
+                }
+            }
+
+            .ftm-horizontal-navigation-item-badge {
+                margin-left: auto;
+
+                .ftm-horizontal-navigation-item-badge-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 10px;
+                    font-weight: 600;
+                    white-space: nowrap;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}

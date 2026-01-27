@@ -1,0 +1,109 @@
+/* Variables */
+:root {
+    --ftm-vertical-navigation-compact-width: 112px;
+}
+
+ftm-vertical-navigation {
+    /* Compact appearance overrides */
+    &.ftm-vertical-navigation-appearance-compact {
+        width: var(--ftm-vertical-navigation-compact-width);
+        min-width: var(--ftm-vertical-navigation-compact-width);
+        max-width: var(--ftm-vertical-navigation-compact-width);
+
+        /* Left positioned */
+        &.ftm-vertical-navigation-position-left {
+            /* Side mode */
+            &.ftm-vertical-navigation-mode-side {
+                margin-left: calc(
+                    var(--ftm-vertical-navigation-compact-width) * -1
+                );
+            }
+
+            /* Opened */
+            &.ftm-vertical-navigation-opened {
+                margin-left: 0;
+            }
+        }
+
+        /* Right positioned */
+        &.ftm-vertical-navigation-position-right {
+            /* Side mode */
+            &.ftm-vertical-navigation-mode-side {
+                margin-right: calc(
+                    var(--ftm-vertical-navigation-compact-width) * -1
+                );
+            }
+
+            /* Opened */
+            &.ftm-vertical-navigation-opened {
+                margin-right: 0;
+            }
+
+            /* Aside wrapper */
+            .ftm-vertical-navigation-aside-wrapper {
+                left: auto;
+                right: var(--ftm-vertical-navigation-compact-width);
+            }
+        }
+
+        /* Wrapper */
+        .ftm-vertical-navigation-wrapper {
+            /* Content */
+            .ftm-vertical-navigation-content {
+                > ftm-vertical-navigation-aside-item,
+                > ftm-vertical-navigation-basic-item {
+                    .ftm-vertical-navigation-item-wrapper {
+                        margin: 4px 8px 0 8px;
+
+                        .ftm-vertical-navigation-item {
+                            flex-direction: column;
+                            justify-content: center;
+                            padding: 12px;
+                            border-radius: 6px;
+
+                            .ftm-vertical-navigation-item-icon {
+                                margin-right: 0;
+                            }
+
+                            .ftm-vertical-navigation-item-title-wrapper {
+                                margin-top: 8px;
+
+                                .ftm-vertical-navigation-item-title {
+                                    font-size: 12px;
+                                    font-weight: 500;
+                                    text-align: center;
+                                    line-height: 16px;
+                                }
+
+                                .ftm-vertical-navigation-item-subtitle {
+                                    display: none !important;
+                                }
+                            }
+
+                            .ftm-vertical-navigation-item-badge {
+                                position: absolute;
+                                top: 12px;
+                                left: 64px;
+                            }
+                        }
+                    }
+
+                    > ftm-vertical-navigation-collapsable-item {
+                        display: none;
+                    }
+
+                    > ftm-vertical-navigation-group-item {
+                        > .ftm-vertical-navigation-item-wrapper {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Aside wrapper */
+        .ftm-vertical-navigation-aside-wrapper {
+            left: var(--ftm-vertical-navigation-compact-width);
+        }
+    }
+}

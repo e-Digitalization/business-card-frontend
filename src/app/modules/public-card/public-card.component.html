@@ -1,0 +1,114 @@
+<div class="flex min-h-screen w-full items-center justify-center bg-slate-100 px-4 py-8">
+    <ng-container *ngIf="card$ | async as card; else notFound">
+        <div class="w-full max-w-5xl rounded-3xl bg-white/80 p-8 shadow-xl backdrop-blur sm:p-12">
+            <div class="flex flex-col items-center text-center">
+                <img
+                    class="h-28 w-28 rounded-full border-4 border-white object-cover shadow"
+                    [src]="card.photoUrl"
+                    [alt]="card.fullName"
+                />
+                <h1 class="mt-4 text-3xl font-semibold text-slate-900">
+                    {{ card.fullName }}
+                </h1>
+                <p class="mt-1 text-base text-slate-500">
+                    {{ card.title }}
+                </p>
+                <p class="text-sm text-slate-400">
+                    {{ card.company }}
+                </p>
+                <a
+                    class="mt-5 inline-flex items-center gap-2 rounded-full bg-primary-600 px-5 py-2 text-sm font-semibold text-white shadow hover:bg-primary-700"
+                    [href]="getVcardUrl(card.slug)"
+                >
+                    <mat-icon class="text-white" [svgIcon]="'heroicons_solid:arrow-down-tray'"></mat-icon>
+                    Save Contact
+                </a>
+            </div>
+
+            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+                <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm">
+                    <mat-icon class="text-primary-600" [svgIcon]="'brand:mobile'"></mat-icon>
+                    <div>
+                        <div class="text-xs uppercase tracking-wide text-slate-400">
+                            Phone
+                        </div>
+                        <div class="text-slate-900">
+                            <div *ngFor="let phone of getPhoneList(card.phone)">
+                                {{ phone }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm">
+                    <mat-icon class="text-primary-600" [svgIcon]="'brand:gmail'"></mat-icon>
+                    <div>
+                        <div class="text-xs uppercase tracking-wide text-slate-400">
+                            Email
+                        </div>
+                        <div class="text-slate-900">{{ card.email }}</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm">
+                    <mat-icon class="text-primary-600" [svgIcon]="'brand:website'"></mat-icon>
+                    <div>
+                        <div class="text-xs uppercase tracking-wide text-slate-400">
+                            Website
+                        </div>
+                        <div class="text-slate-900">{{ card.website }}</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm">
+                    <mat-icon class="text-primary-600" [svgIcon]="'brand:google-maps'"></mat-icon>
+                    <div>
+                        <div class="text-xs uppercase tracking-wide text-slate-400">
+                            Location
+                        </div>
+                        <div class="text-slate-900">{{ card.location }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500">
+                <a
+                    *ngIf="card.linkedin"
+                    class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm hover:bg-slate-50"
+                    [href]="card.linkedin"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <mat-icon class="text-primary-600" [svgIcon]="'brand:linkedin'"></mat-icon>
+                    LinkedIn
+                </a>
+                <a
+                    *ngIf="card.twitter"
+                    class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm hover:bg-slate-50"
+                    [href]="card.twitter"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <mat-icon class="text-primary-600" [svgIcon]="'brand:twitter'"></mat-icon>
+                    X (Twitter)
+                </a>
+                <a
+                    *ngIf="card.github"
+                    class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm hover:bg-slate-50"
+                    [href]="card.github"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <mat-icon class="text-primary-600" [svgIcon]="'brand:github-sign'"></mat-icon>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #notFound>
+        <div class="rounded-2xl bg-white p-6 text-center shadow">
+            <p class="text-slate-600">Card not found.</p>
+        </div>
+    </ng-template>
+</div>

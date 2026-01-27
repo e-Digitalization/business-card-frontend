@@ -1,0 +1,559 @@
+/* Variables */
+:root {
+    --ftm-vertical-navigation-width: 280px;
+}
+
+ftm-vertical-navigation {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    top: 0;
+    width: var(--ftm-vertical-navigation-width);
+    min-width: var(--ftm-vertical-navigation-width);
+    max-width: var(--ftm-vertical-navigation-width);
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    z-index: 200;
+
+    /* ----------------------------------------------------------------------------------------------------- */
+    /* @ Navigation Drawer
+    /* ----------------------------------------------------------------------------------------------------- */
+
+    /* Animations */
+    &.ftm-vertical-navigation-animations-enabled {
+        transition-duration: 400ms;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition-property: visibility, margin-left, margin-right, transform,
+            width, max-width, min-width;
+
+        /* Wrapper */
+        .ftm-vertical-navigation-wrapper {
+            transition-duration: 400ms;
+            transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition-property: width, max-width, min-width;
+        }
+    }
+
+    /* Over mode */
+    &.ftm-vertical-navigation-mode-over {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+    }
+
+    /* Left position */
+    &.ftm-vertical-navigation-position-left {
+        /* Side mode */
+        &.ftm-vertical-navigation-mode-side {
+            margin-left: calc(#{var(--ftm-vertical-navigation-width)} * -1);
+
+            &.ftm-vertical-navigation-opened {
+                margin-left: 0;
+            }
+        }
+
+        /* Over mode */
+        &.ftm-vertical-navigation-mode-over {
+            left: 0;
+            transform: translate3d(-100%, 0, 0);
+
+            &.ftm-vertical-navigation-opened {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        /* Wrapper */
+        .ftm-vertical-navigation-wrapper {
+            left: 0;
+        }
+    }
+
+    /* Right position */
+    &.ftm-vertical-navigation-position-right {
+        /* Side mode */
+        &.ftm-vertical-navigation-mode-side {
+            margin-right: calc(var(--ftm-vertical-navigation-width) * -1);
+
+            &.ftm-vertical-navigation-opened {
+                margin-right: 0;
+            }
+        }
+
+        /* Over mode */
+        &.ftm-vertical-navigation-mode-over {
+            right: 0;
+            transform: translate3d(100%, 0, 0);
+
+            &.ftm-vertical-navigation-opened {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        /* Wrapper */
+        .ftm-vertical-navigation-wrapper {
+            right: 0;
+        }
+    }
+
+    /* Inner mode */
+    &.ftm-vertical-navigation-inner {
+        position: relative;
+        width: auto;
+        min-width: 0;
+        max-width: none;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        box-shadow: none;
+
+        .ftm-vertical-navigation-wrapper {
+            position: relative;
+            overflow: visible;
+            height: auto;
+
+            .ftm-vertical-navigation-content {
+                overflow: visible !important;
+            }
+        }
+    }
+
+    /* Wrapper */
+    .ftm-vertical-navigation-wrapper {
+        position: absolute;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 10;
+        background: inherit;
+        box-shadow: inset -1px 0 0 var(--ftm-border);
+
+        /* Header */
+        .ftm-vertical-navigation-header {
+        }
+
+        /* Content */
+        .ftm-vertical-navigation-content {
+            flex: 1 1 auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+
+            /* Divider */
+            > ftm-vertical-navigation-divider-item {
+                margin: 24px 0;
+            }
+
+            /* Group */
+            > ftm-vertical-navigation-group-item {
+                margin-top: 24px;
+            }
+        }
+
+        /* Footer */
+        .ftm-vertical-navigation-footer {
+        }
+    }
+
+    /* Aside wrapper */
+    .ftm-vertical-navigation-aside-wrapper {
+        position: absolute;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        top: 0;
+        bottom: 0;
+        left: var(--ftm-vertical-navigation-width);
+        width: var(--ftm-vertical-navigation-width);
+        height: 100%;
+        z-index: 5;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transition-duration: 400ms;
+        transition-property: left, right;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        background: inherit;
+
+        > ftm-vertical-navigation-aside-item {
+            padding: 24px 0;
+
+            /* First item of the aside */
+            > .ftm-vertical-navigation-item-wrapper {
+                display: none !important;
+            }
+        }
+    }
+
+    &.ftm-vertical-navigation-position-right {
+        .ftm-vertical-navigation-aside-wrapper {
+            left: auto;
+            right: var(--ftm-vertical-navigation-width);
+        }
+    }
+
+    /* ----------------------------------------------------------------------------------------------------- */
+    /* @ Navigation Items
+    /* ----------------------------------------------------------------------------------------------------- */
+
+    /* Navigation items common */
+    ftm-vertical-navigation-aside-item,
+    ftm-vertical-navigation-basic-item,
+    ftm-vertical-navigation-collapsable-item,
+    ftm-vertical-navigation-divider-item,
+    ftm-vertical-navigation-group-item,
+    ftm-vertical-navigation-spacer-item {
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+        user-select: none;
+
+        .ftm-vertical-navigation-item-wrapper {
+            .ftm-vertical-navigation-item {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 10px 16px;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 20px;
+                text-decoration: none;
+                border-radius: 6px;
+
+                /* Disabled state */
+                &.ftm-vertical-navigation-item-disabled {
+                    cursor: default;
+                    opacity: 0.4;
+                }
+
+                .ftm-vertical-navigation-item-icon {
+                    margin-right: 16px;
+                }
+
+                .ftm-vertical-navigation-item-title-wrapper {
+                    .ftm-vertical-navigation-item-subtitle {
+                        font-size: 11px;
+                        line-height: 1.5;
+                    }
+                }
+
+                .ftm-vertical-navigation-item-badge {
+                    margin-left: auto;
+
+                    .ftm-vertical-navigation-item-badge-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 10px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        height: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Aside, Basic, Collapsable, Group */
+    ftm-vertical-navigation-aside-item,
+    ftm-vertical-navigation-basic-item,
+    ftm-vertical-navigation-collapsable-item,
+    ftm-vertical-navigation-group-item {
+        > .ftm-vertical-navigation-item-wrapper {
+            margin: 0 12px;
+        }
+    }
+
+    /* Aside, Basic, Collapsable */
+    ftm-vertical-navigation-aside-item,
+    ftm-vertical-navigation-basic-item,
+    ftm-vertical-navigation-collapsable-item {
+        margin-bottom: 4px;
+
+        .ftm-vertical-navigation-item {
+            cursor: pointer;
+        }
+    }
+
+    /* Aside */
+    ftm-vertical-navigation-aside-item {
+    }
+
+    /* Basic */
+    ftm-vertical-navigation-basic-item {
+    }
+
+    /* Collapsable */
+    ftm-vertical-navigation-collapsable-item {
+        > .ftm-vertical-navigation-item-wrapper {
+            .ftm-vertical-navigation-item {
+                .ftm-vertical-navigation-item-badge {
+                    + .ftm-vertical-navigation-item-arrow {
+                        margin-left: 8px;
+                    }
+                }
+
+                .ftm-vertical-navigation-item-arrow {
+                    height: 20px;
+                    line-height: 20px;
+                    margin-left: auto;
+                    transition:
+                        transform 300ms cubic-bezier(0.25, 0.8, 0.25, 1),
+                        color 375ms cubic-bezier(0.25, 0.8, 0.25, 1);
+                }
+            }
+        }
+
+        &.ftm-vertical-navigation-item-expanded {
+            > .ftm-vertical-navigation-item-wrapper {
+                .ftm-vertical-navigation-item {
+                    .ftm-vertical-navigation-item-arrow {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+
+        > .ftm-vertical-navigation-item-children {
+            > *:first-child {
+                margin-top: 6px;
+            }
+
+            > *:last-child {
+                padding-bottom: 6px;
+
+                > .ftm-vertical-navigation-item-children {
+                    > *:last-child {
+                        padding-bottom: 0;
+                    }
+                }
+            }
+
+            .ftm-vertical-navigation-item {
+                padding: 10px 16px;
+            }
+        }
+
+        /* 1st level */
+        .ftm-vertical-navigation-item-children {
+            overflow: hidden;
+
+            .ftm-vertical-navigation-item {
+                padding-left: 56px;
+            }
+
+            /* 2nd level */
+            .ftm-vertical-navigation-item-children {
+                .ftm-vertical-navigation-item {
+                    padding-left: 72px;
+                }
+
+                /* 3rd level */
+                .ftm-vertical-navigation-item-children {
+                    .ftm-vertical-navigation-item {
+                        padding-left: 88px;
+                    }
+
+                    /* 4th level */
+                    .ftm-vertical-navigation-item-children {
+                        .ftm-vertical-navigation-item {
+                            padding-left: 104px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* Divider */
+    ftm-vertical-navigation-divider-item {
+        margin: 12px 0;
+
+        .ftm-vertical-navigation-item-wrapper {
+            height: 1px;
+            box-shadow: 0 1px 0 0;
+        }
+    }
+
+    /* Group */
+    ftm-vertical-navigation-group-item {
+        > .ftm-vertical-navigation-item-wrapper {
+            .ftm-vertical-navigation-item {
+                .ftm-vertical-navigation-item-badge,
+                .ftm-vertical-navigation-item-icon {
+                    display: none !important;
+                }
+
+                .ftm-vertical-navigation-item-title-wrapper {
+                    .ftm-vertical-navigation-item-title {
+                        font-size: 12px;
+                        font-weight: 600;
+                        letter-spacing: 0.05em;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Spacer */
+    ftm-vertical-navigation-spacer-item {
+        margin: 6px 0;
+    }
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/* @ Overlay
+/* ----------------------------------------------------------------------------------------------------- */
+.ftm-vertical-navigation-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 170;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    + .ftm-vertical-navigation-aside-overlay {
+        background-color: transparent;
+    }
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/* @ Aside overlay
+/* ----------------------------------------------------------------------------------------------------- */
+.ftm-vertical-navigation-aside-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 169;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/* @ Navigation Items Colors
+/* ----------------------------------------------------------------------------------------------------- */
+
+/* Navigation items common */
+ftm-vertical-navigation-aside-item,
+ftm-vertical-navigation-basic-item,
+ftm-vertical-navigation-collapsable-item,
+ftm-vertical-navigation-group-item {
+    .ftm-vertical-navigation-item-wrapper {
+        .ftm-vertical-navigation-item {
+            color: currentColor;
+
+            .ftm-vertical-navigation-item-icon {
+                @apply text-current opacity-60;
+            }
+
+            .ftm-vertical-navigation-item-title-wrapper {
+                .ftm-vertical-navigation-item-title {
+                    @apply text-current opacity-80;
+                }
+
+                .ftm-vertical-navigation-item-subtitle {
+                    @apply text-current opacity-50;
+                }
+            }
+        }
+    }
+}
+
+/* Aside, Basic, Collapsable */
+ftm-vertical-navigation-aside-item,
+ftm-vertical-navigation-basic-item,
+ftm-vertical-navigation-collapsable-item {
+    > .ftm-vertical-navigation-item-wrapper {
+        .ftm-vertical-navigation-item {
+            /* Active state */
+            &:not(.ftm-vertical-navigation-item-disabled) {
+                &.ftm-vertical-navigation-item-active,
+                &.ftm-vertical-navigation-item-active-forced {
+                    @apply bg-gray-800 bg-opacity-5 dark:bg-white dark:bg-opacity-12;
+
+                    .ftm-vertical-navigation-item-icon {
+                        @apply opacity-100;
+                    }
+
+                    .ftm-vertical-navigation-item-title {
+                        @apply opacity-100;
+                    }
+
+                    .ftm-vertical-navigation-item-subtitle {
+                        @apply opacity-100;
+                    }
+                }
+            }
+
+            /* Hover state */
+            &:not(.ftm-vertical-navigation-item-active-forced):not(
+                    .ftm-vertical-navigation-item-active
+                ):not(.ftm-vertical-navigation-item-disabled) {
+                &:hover {
+                    @apply bg-gray-800 bg-opacity-5 dark:bg-white dark:bg-opacity-12;
+
+                    .ftm-vertical-navigation-item-icon {
+                        @apply opacity-100;
+                    }
+
+                    .ftm-vertical-navigation-item-title,
+                    .ftm-vertical-navigation-item-arrow {
+                        @apply opacity-100;
+                    }
+
+                    .ftm-vertical-navigation-item-subtitle {
+                        @apply opacity-100;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Collapsable */
+ftm-vertical-navigation-collapsable-item {
+    /* Expanded state */
+    &.ftm-vertical-navigation-item-expanded {
+        > .ftm-vertical-navigation-item-wrapper {
+            .ftm-vertical-navigation-item {
+                .ftm-vertical-navigation-item-icon {
+                    @apply opacity-100;
+                }
+
+                .ftm-vertical-navigation-item-title,
+                .ftm-vertical-navigation-item-arrow {
+                    @apply opacity-100;
+                }
+
+                .ftm-vertical-navigation-item-subtitle {
+                    @apply opacity-100;
+                }
+            }
+        }
+    }
+}
+
+/* Group */
+ftm-vertical-navigation-group-item {
+    > .ftm-vertical-navigation-item-wrapper {
+        .ftm-vertical-navigation-item {
+            .ftm-vertical-navigation-item-title-wrapper {
+                .ftm-vertical-navigation-item-title {
+                    @apply text-primary-600 opacity-100 dark:text-primary-400;
+                }
+            }
+        }
+    }
+}

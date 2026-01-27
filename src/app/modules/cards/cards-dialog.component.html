@@ -1,0 +1,187 @@
+<h2 mat-dialog-title>
+    {{
+        data?.viewOnly
+            ? 'Card Details'
+            : data?.card
+              ? 'Edit Card'
+              : 'Create Card'
+    }}
+</h2>
+<div mat-dialog-content>
+    @if (showAlert) {
+        <ftm-alert
+            class="mb-4"
+            [appearance]="'outline'"
+            [showIcon]="false"
+            [type]="alert.type"
+        >
+            {{ alert.message }}
+        </ftm-alert>
+    }
+    <div
+        *ngIf="data?.viewOnly && data?.card"
+        class="mb-6 rounded-2xl border border-slate-200 bg-slate-50 p-4"
+    >
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <img
+                *ngIf="data.card.photoUrl"
+                class="h-20 w-20 rounded-2xl object-cover shadow"
+                [src]="data.card.photoUrl"
+                [alt]="data.card.fullName"
+            />
+            <div>
+                <div class="text-lg font-semibold text-slate-900">
+                    {{ data.card.fullName }}
+                </div>
+                <div class="text-sm text-slate-500">
+                    {{ data.card.title }} · {{ data.card.company }}
+                </div>
+                <div class="text-xs text-slate-400">
+                    {{ data.card.location }}
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+            <div><span class="text-slate-400">Slug:</span> {{ data.card.slug }}</div>
+            <div><span class="text-slate-400">Status:</span> {{ data.card.active ? 'Active' : 'Inactive' }}</div>
+            <div><span class="text-slate-400">Phone:</span> {{ data.card.phone }}</div>
+            <div><span class="text-slate-400">Email:</span> {{ data.card.email }}</div>
+            <div><span class="text-slate-400">Website:</span> {{ data.card.website }}</div>
+            <div><span class="text-slate-400">WhatsApp:</span> {{ data.card.whatsapp }}</div>
+            <div><span class="text-slate-400">LinkedIn:</span> {{ data.card.linkedin }}</div>
+            <div><span class="text-slate-400">Twitter:</span> {{ data.card.twitter }}</div>
+            <div><span class="text-slate-400">GitHub:</span> {{ data.card.github }}</div>
+        </div>
+    </div>
+
+    <form *ngIf="!data?.viewOnly" class="grid gap-4 sm:grid-cols-2" [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <mat-label>Slug</mat-label>
+            <input matInput formControlName="slug" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="fullName" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <input matInput formControlName="company" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input matInput formControlName="location" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" />
+            <mat-hint>Separate multiple numbers with “;” or “,”</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Website</mat-label>
+            <input matInput formControlName="website" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>WhatsApp</mat-label>
+            <input matInput formControlName="whatsapp" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Photo URL</mat-label>
+            <input matInput formControlName="photoUrl" />
+            <mat-hint>Accepts base64 data URLs or hosted image links</mat-hint>
+        </mat-form-field>
+        <div class="flex flex-col gap-3 sm:col-span-2">
+            <div class="text-sm font-medium text-slate-700">Profile Image</div>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <img
+                    *ngIf="previewUrl || form.value.photoUrl"
+                    class="h-20 w-20 rounded-2xl object-cover shadow"
+                    [src]="previewUrl || form.value.photoUrl"
+                    alt="Preview"
+                />
+                <input type="file" accept="image/*" (change)="onPhotoSelected($event)" [disabled]="data?.viewOnly" />
+            </div>
+            <div class="text-xs text-slate-500">
+                Uploading a file will store a data URL in Photo URL. Replace with hosted URL if needed.
+            </div>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>LinkedIn</mat-label>
+            <input matInput formControlName="linkedin" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Twitter / X</mat-label>
+            <input matInput formControlName="twitter" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>GitHub</mat-label>
+            <input matInput formControlName="github" />
+        </mat-form-field>
+        <mat-checkbox formControlName="active">Active</mat-checkbox>
+    </form>
+
+    <div class="mt-6 border-t border-slate-200 pt-4" *ngIf="data?.card?.id">
+        <div class="text-sm font-semibold text-slate-700">RFID Tags</div>
+        <div class="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <mat-form-field appearance="outline" class="flex-1">
+                <mat-label>Tag Code</mat-label>
+                <input matInput [(ngModel)]="tagCode" [disabled]="data?.viewOnly" />
+            </mat-form-field>
+            <button mat-stroked-button type="button" [disabled]="data?.viewOnly" (click)="addTag()">Assign Tag</button>
+        </div>
+        <div class="mt-3 space-y-2">
+            <div
+                *ngFor="let tag of data.card.tags"
+                class="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-sm"
+            >
+                <div>
+                    <div class="font-medium text-slate-700">{{ tag.tagCode }}</div>
+                    <div class="text-xs text-slate-400">ID: {{ tag.id }}</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span
+                        class="rounded-full px-2 py-1 text-xs"
+                        [class.bg-emerald-100]="tag.active"
+                        [class.text-emerald-700]="tag.active"
+                        [class.bg-slate-100]="!tag.active"
+                        [class.text-slate-500]="!tag.active"
+                    >
+                        {{ tag.active ? 'Active' : 'Inactive' }}
+                    </span>
+                    <button
+                        mat-button
+                        color="warn"
+                        type="button"
+                        [disabled]="!tag.active || data?.viewOnly"
+                        (click)="deactivateTag(tag.id)"
+                    >
+                        Deactivate
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="!data.card.tags?.length" class="text-xs text-slate-500">
+                No RFID tags assigned yet.
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions class="justify-end">
+    <button mat-stroked-button type="button" (click)="close()">Close</button>
+    <button
+        *ngIf="!data?.viewOnly"
+        mat-flat-button
+        color="primary"
+        type="button"
+        [disabled]="saving"
+        (click)="save()"
+    >
+        {{ saving ? 'Saving...' : 'Save' }}
+    </button>
+</div>

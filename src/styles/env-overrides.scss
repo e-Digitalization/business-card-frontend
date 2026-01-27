@@ -1,0 +1,141 @@
+:root {
+    --ftm-vertical-navigation-compact-width: 128px; /* was 112px */
+}
+
+/* 2) Border tone on wrapper edge to match env border color */
+ftm-vertical-navigation .ftm-vertical-navigation-wrapper {
+    /* default uses inset -1px 0 0 var(--ftm-border) */
+    box-shadow: inset -1px 0 0
+        var(--env-sidenav-border, rgba(229, 231, 235, 0.1));
+}
+
+/* 3) Dividers tone */
+ftm-vertical-navigation
+    ftm-vertical-navigation-divider-item
+    .ftm-vertical-navigation-item-wrapper {
+    box-shadow: 0 1px 0 0 var(--env-sidenav-divider, rgba(229, 231, 235, 0.12));
+}
+
+/* 4) Hover/active backgrounds with env variables (no !important to avoid fighting opacity rules) */
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item:hover:not(
+        .ftm-vertical-navigation-item-active
+    ):not(.ftm-vertical-navigation-item-disabled) {
+    background: var(--env-sidenav-hover-bg, rgba(229, 231, 235, 0.06));
+}
+
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active,
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active-forced {
+    background: var(--env-sidenav-active-bg, rgba(229, 231, 235, 0.12));
+}
+
+/* 5) Accent for icon when active */
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active
+    .ftm-vertical-navigation-item-icon,
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active
+    .ftm-vertical-navigation-item-icon
+    svg,
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active-forced
+    .ftm-vertical-navigation-item-icon,
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active-forced
+    .ftm-vertical-navigation-item-icon
+    svg {
+    color: var(--ftm-primary-500) #{'!important'};
+    fill: currentColor;
+    stroke: currentColor;
+    transition: color 160ms ease;
+}
+
+/* Ensure icons/titles transition smoothly in general */
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item
+    .ftm-vertical-navigation-item-icon,
+ftm-vertical-navigation
+    .ftm-vertical-navigation-item
+    .ftm-vertical-navigation-item-title {
+    transition: color 160ms ease;
+}
+
+/* 6) Compact-specific fine tuning: keep titles readable without forced accent */
+ftm-vertical-navigation.ftm-vertical-navigation-appearance-compact
+    .ftm-vertical-navigation-item-title {
+    color: inherit;
+    opacity: 0.85;
+    white-space: normal;
+    display: -webkit-box;
+    line-clamp: 2; /* standard */
+    -webkit-line-clamp: 2; /* show up to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 7) Pepmis layout tweaks */
+.ftm-pepmis-nav .ftm-vertical-navigation-item {
+    border-radius: 10px;
+    padding: 14px 18px;
+    position: relative;
+}
+.ftm-pepmis-nav
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active {
+    background: var(--env-sidenav-active-bg, rgba(229, 231, 235, 0.12));
+}
+
+/* Spacing like card list */
+.ftm-pepmis-nav .ftm-vertical-navigation-item-wrapper {
+    margin: 8px 12px;
+}
+
+/* Larger, friendlier icon sizing */
+.ftm-pepmis-nav
+    .ftm-vertical-navigation-item
+    .ftm-vertical-navigation-item-icon {
+    font-size: 26px;
+}
+
+/* Subtle hover card */
+.ftm-pepmis-nav
+    .ftm-vertical-navigation-item:hover:not(
+        .ftm-vertical-navigation-item-active
+    ):not(.ftm-vertical-navigation-item-disabled) {
+    background: var(--env-sidenav-hover-bg, rgba(229, 231, 235, 0.06));
+}
+
+/* Bottom-right accent wedge on active */
+.ftm-pepmis-nav
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active::after,
+.ftm-pepmis-nav
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active-forced::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 22px;
+    height: 22px;
+    background: var(--ftm-primary-500);
+    -webkit-clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    border-bottom-right-radius: 6px;
+}
+
+/* Classy layout: use the same polygon wedge */
+.ftm-classy-nav
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active::after,
+.ftm-classy-nav
+    .ftm-vertical-navigation-item.ftm-vertical-navigation-item-active-forced::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 22px;
+    height: 22px;
+    background: var(--ftm-primary-500);
+    -webkit-clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    border-bottom-right-radius: 6px;
+}
