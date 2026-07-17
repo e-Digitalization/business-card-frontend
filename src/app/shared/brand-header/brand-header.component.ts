@@ -44,7 +44,7 @@ import { NgIf, NgFor } from '@angular/common';
             <div class="bg-white">
                 <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
                     <div class="flex items-center gap-3">
-                        <img src="images/logo/logo.svg" alt="Swahili Systems" class="h-9 w-9" />
+                        <img src="images/logo/logo.png" alt="Swahili Systems" class="h-9 w-9" />
                         <div class="text-lg font-semibold text-slate-900">Swahili Systems</div>
                     </div>
 

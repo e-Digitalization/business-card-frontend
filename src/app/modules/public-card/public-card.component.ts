@@ -31,6 +31,12 @@ export class PublicCardComponent {
         return this._publicCardService.getVcardUrl(slug);
     }
 
+    getAvatarUrl(photoUrl: string | null | undefined): string {
+        return photoUrl && photoUrl.trim().length > 0
+            ? photoUrl
+            : 'images/avatars/person.svg';
+    }
+
     getPhoneList(phone: string | null | undefined): string[] {
         if (!phone) {
             return [];

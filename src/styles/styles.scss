@@ -4,6 +4,20 @@
 /* ----------------------------------------------------------------------------------------------------- */
 
 /* Ensure Angular CDK overlays (menus, dialogs, tooltips) sit above app chrome */
-.cdk-overlay-container {
-    z-index: 1000; /* higher than headers/drawers defined around ~300-999 */
+.cdk-overlay-container,
+.cdk-overlay-pane {
+    z-index: 9999; /* keep selects/menus above tables and headers */
+}
+
+/* Ensure tables don't paint above overlays */
+.mat-mdc-table {
+    position: relative;
+    z-index: 0;
+}
+
+/* Make select panels fully opaque so content beneath doesn't show through */
+.mat-mdc-select-panel {
+    background-color: #ffffff !important;
+    opacity: 1;
+    z-index: 10000;
 }

@@ -43,6 +43,7 @@ export class CardsComponent implements OnInit, AfterViewInit {
 
     selectedCardId: number | null = null;
     displayedColumns = [
+        'no',
         'avatar',
         'fullName',
         'title',
@@ -82,6 +83,13 @@ export class CardsComponent implements OnInit, AfterViewInit {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
+    }
+
+    getRowNumber(index: number): number {
+        if (!this.paginator) {
+            return index + 1;
+        }
+        return this.paginator.pageIndex * this.paginator.pageSize + index + 1;
     }
 
     formatTagCodes(tags: { tagCode: string }[] | null | undefined): string {
